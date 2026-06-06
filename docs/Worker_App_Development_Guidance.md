@@ -20,9 +20,25 @@ Never pass sensitive data through navigation params. No passwords, authenticatio
 
 Every single screen must have a corresponding JSON translation file with all static text translated to all supported languages. Example — dashboard-screen.json contains English, Bosnian, Serbian, German translations for all buttons, labels, error messages on dashboard. No hardcoded text in component files. Component imports JSON and references keys dynamically. All UI text — buttons, labels, error messages, empty states, loading states — must be in JSON. Any new text added requires translation file update.
 
-## Environment Variables
+## Environment Variables - CRITICAL SECURITY RULE
 
-All sensitive credentials stored in Supabase dashboard as environment variables. Never hardcode API keys, Clerk keys, Stripe keys, database URLs, or any secrets in code. Use deno.get to fetch environment variables from Supabase at runtime. All three apps (worker, client, admin) fetch same environment variables. Validate that all required environment variables exist on app startup — if missing, show clear error message, don't silently fail. Environment variables include — Clerk API key, Stripe publishable key, Supabase URL, Supabase anon key, Google Maps API key if used.
+**NO .env files in this project. No environment variables needed in the app.**
+
+All sensitive credentials and API keys are stored in Supabase dashboard on the server-side only. Frontend app never accesses secrets directly.
+
+**Never:**
+- ❌ Create .env files
+- ❌ Hardcode API keys, Clerk keys, Stripe keys, database URLs
+- ❌ Store any secrets in code
+- ❌ Access environment variables locally
+
+**Always:**
+- ✅ Call backend APIs for all sensitive operations
+- ✅ Backend retrieves secrets from Supabase dashboard server-side using Deno.env.get()
+- ✅ Worker app is a client app - no secrets needed
+- ✅ Let backend handle credential management
+
+Backend manages: Clerk API key, Stripe secret key, Supabase service role key, database URLs, encryption keys, JWT secrets.
 
 ## Error Handling
 
@@ -71,3 +87,54 @@ Strictly avoid unnecessary API calls to minimize database costs. Use a cache lay
 ## Rate Limiting
 
 Implement strict rate limiting on all API endpoints to prevent abuse and control database costs. Rate limit by user ID — limit each user to X requests per minute. Example: limit to 60 requests per minute per user. Return 429 (Too Many Requests) error if limit exceeded. Client receives 429 error and must wait before retrying. Show user message — "You're requesting too frequently, please wait a moment." Implement exponential backoff on client — wait 1 second, then 2 seconds, then 4 seconds before retrying. Different endpoints can have different rate limits — authentication endpoints stricter, public endpoints more lenient. Video upload endpoints rate limited heavily to prevent spam. Worker profile updates rate limited to prevent accidental duplicate submissions. Payment endpoints rate limited to prevent accidental duplicate charges. Log rate limit violations in error table for monitoring abuse patterns. Don't trust user claims about request validity — always validate on server that the request makes sense before executing.
+
+## Geo-Restriction: Workers Visible Only in Their Registered Country
+
+**Critical Feature:** Workers are only visible to clients who are in the same country. A worker registered in Germany is NOT visible to clients in France or any other country.
+
+### How It Works
+
+**Worker Registration:**
+- Worker selects country during registration (location selection screen)
+- Country stored in worker's profile in Supabase
+- Worker can update country in profile settings
+- Country determines which clients can see this worker
+
+**Visibility:**
+- Worker's profile visible ONLY to clients from the same country
+- When a client searches for workers, they see ONLY workers from their own country
+- Worker cannot change visibility or make profile visible cross-country
+- Worker profile includes country field that's never shown to client but used for filtering
+
+**Data Flow:**
+1. Worker registers and selects country during onboarding
+2. Worker's country stored in database (workers table, `country` column)
+3. Clients from that country can see this worker
+4. Clients from other countries CANNOT see this worker
+5. Backend RLS policies enforce visibility restrictions
+6. Worker cannot opt out of country restriction
+
+### Implementation
+
+**Frontend:**
+- Worker's country selected during registration
+- Country displayed in worker's profile (for admin dashboard visibility)
+- Worker cannot change country visibility settings
+- Worker sees only their own profile visibility settings, not filtering rules
+
+**Backend:**
+- Worker list endpoint filters by client's country
+- RLS policies enforce country isolation
+- Workers table includes `country` column
+- When fetching worker profile, verify client's country matches worker's country
+- Return 403 Forbidden if client attempts to view worker from different country
+- Admin dashboard can see all workers regardless of country
+
+### Security
+
+- Country determined at registration, server-enforced
+- Worker cannot fake or change their country through API
+- Client's country determined from their profile, not from request
+- RLS policies prevent cross-country worker visibility at database level
+- Logging tracks any attempts to access unauthorized workers
+- All filtering happens server-side; frontend cannot override

@@ -92,18 +92,27 @@ Error messages must be professional and user-friendly. Never expose technical er
 
 Technical details must be logged internally for admin review.
 
-## Security Rules
+## Security Rules - CRITICAL
 
-Security is paramount. Never:
-- Hardcode API keys
-- Expose secrets in code
-- Trust client-side validation alone
+Security is paramount. **NO .env files in this project.**
 
-Always:
-- Use environment variables (no hardcoding)
-- Sanitize inputs
-- Prevent SQL injection
-- Keep URLs clean and simple
+**Never:**
+- ❌ Hardcode API keys or secrets
+- ❌ Create or use .env files
+- ❌ Expose secrets in code
+- ❌ Trust client-side validation alone
+- ❌ Store sensitive data locally
+- ❌ Include credentials in requests
+
+**Always:**
+- ✅ Get API keys from Supabase dashboard (backend provides them)
+- ✅ Validate inputs (server-side validation)
+- ✅ Prevent SQL injection (server-side)
+- ✅ Keep URLs clean and simple
+- ✅ Call backend APIs for all sensitive operations
+- ✅ Let backend handle all credential management
+
+**Key Rule:** All credentials, API keys, and secrets are stored in Supabase dashboard server-side only. App has public URLs - no secrets in code.
 
 ## Simplicity Rules
 

@@ -3,11 +3,13 @@ import { View, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAppAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 export default function SplashScreen() {
   const router = useRouter();
   const { isLoaded, isSignedIn } = useAppAuth();
   const { isLoading: languageLoading } = useLanguage();
+  const { colors } = useThemedStyles();
 
   useEffect(() => {
     if (!isLoaded || languageLoading) return;
@@ -20,8 +22,13 @@ export default function SplashScreen() {
   }, [isLoaded, languageLoading, isSignedIn]);
 
   return (
-    <View className="flex-1 bg-white items-center justify-center">
-      <ActivityIndicator size="large" color="#000" />
+    <View style={{
+      flex: 1,
+      backgroundColor: colors.background.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      <ActivityIndicator size="large" color={colors.text.primary} />
     </View>
   );
 }

@@ -18,5 +18,7 @@ module.exports = {
       },
     },
   },
+  // Light mode is default (no darkMode prefix needed)
+  // Dark mode uses ThemeContext for dynamic switching
   plugins: [],
 };

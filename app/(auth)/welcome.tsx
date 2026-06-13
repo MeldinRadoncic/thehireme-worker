@@ -2,25 +2,26 @@ import { View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, Card } from '@/components';
-import { THEME } from '@/constants/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { colors, spacing } = useThemedStyles();
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: THEME.colors.background.primary }} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
       {/* Content */}
       <View>
         {/* Hero Section */}
-        <View style={{ paddingTop: THEME.spacing['5xl'], paddingHorizontal: THEME.spacing.lg, paddingBottom: THEME.spacing.lg }}>
+        <View style={{ paddingTop: spacing['5xl'], paddingHorizontal: spacing.lg, paddingBottom: spacing.lg }}>
           {/* Logo/Branding */}
-          <View style={{ marginBottom: THEME.spacing['4xl'] }}>
-            <View style={{ marginBottom: THEME.spacing.xl, flexDirection: 'row', alignItems: 'center', gap: THEME.spacing.md }}>
+          <View style={{ marginBottom: spacing['4xl'] }}>
+            <View style={{ marginBottom: spacing.xl, flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
               <View style={{
                 width: 48,
                 height: 48,
-                backgroundColor: THEME.colors.primary.main,
-                borderRadius: THEME.spacingPresets.radius.md,
+                backgroundColor: colors.primary.main,
+                borderRadius: spacing.spacingPresets.radius.md,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
@@ -34,11 +35,11 @@ export default function WelcomeScreen() {
           </View>
 
           {/* Hero Headline */}
-          <View style={{ marginBottom: THEME.spacing['5xl'] }}>
-            <Text variant="h1" style={{ marginBottom: THEME.spacing.md }}>
+          <View style={{ marginBottom: spacing['5xl'] }}>
+            <Text variant="h1" style={{ marginBottom: spacing.md }}>
               Build Your Reputation
             </Text>
-            <Text variant="h1" color="secondary" style={{ marginBottom: THEME.spacing.lg }}>
+            <Text variant="h1" color="secondary" style={{ marginBottom: spacing.lg }}>
               Earn More
             </Text>
             <Text variant="body" color="secondary">
@@ -47,31 +48,31 @@ export default function WelcomeScreen() {
           </View>
 
           {/* Feature Cards - Redesigned */}
-          <View style={{ gap: THEME.spacing.md, marginBottom: THEME.spacing['5xl'] }}>
+          <View style={{ gap: spacing.md, marginBottom: spacing['5xl'] }}>
             <FeatureCard
               icon="person-circle"
               title="Premium Profile"
               description="Build a stunning professional profile with portfolio, videos, and verified reviews"
-              accentColor={THEME.colors.primary.main}
+              accentColor={colors.primary.main}
             />
             <FeatureCard
               icon="trending-up"
               title="Grow Your Earnings"
               description="Unlock credit-based promotions and boost visibility to thousands of local clients"
-              accentColor={THEME.colors.secondary.cyan}
+              accentColor={colors.secondary.cyan}
             />
             <FeatureCard
               icon="star"
               title="Build Trust"
               description="Earn verified reviews and ratings that showcase your expertise and reliability"
-              accentColor={THEME.colors.secondary.yellow}
+              accentColor={colors.secondary.yellow}
             />
           </View>
         </View>
 
         {/* CTA Buttons Section */}
-        <View style={{ paddingHorizontal: THEME.spacing.lg, paddingBottom: THEME.spacing['4xl'] }}>
-          <View style={{ gap: THEME.spacing.md }}>
+        <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing['4xl'] }}>
+          <View style={{ gap: spacing.md }}>
             {/* Primary CTA */}
             <Button
               title="Get Started"
@@ -90,8 +91,8 @@ export default function WelcomeScreen() {
             />
 
             {/* Trust Signal */}
-            <View style={{ marginTop: THEME.spacing.lg, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: THEME.spacing.sm }}>
-              <Ionicons name="shield-checkmark" size={16} color={THEME.colors.primary.main} />
+            <View style={{ marginTop: spacing.lg, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm }}>
+              <Ionicons name="shield-checkmark" size={16} color={colors.primary.main} />
               <Text variant="bodySmall" color="secondary">
                 Trusted by 5,000+ service professionals
               </Text>
@@ -114,21 +115,23 @@ function FeatureCard({
   description: string;
   accentColor: string;
 }) {
+  const { colors, spacing } = useThemedStyles();
+
   return (
     <View style={{
-      backgroundColor: THEME.colors.background.secondary,
-      borderRadius: THEME.spacingPresets.radius.lg,
-      padding: THEME.spacing.md,
+      backgroundColor: colors.background.secondary,
+      borderRadius: spacing.spacingPresets.radius.lg,
+      padding: spacing.md,
       flexDirection: 'row',
-      gap: THEME.spacing.md,
+      gap: spacing.md,
       borderWidth: 2,
       borderColor: accentColor,
     }}>
       <View style={{
         width: 56,
         height: 56,
-        backgroundColor: THEME.colors.background.tertiary,
-        borderRadius: THEME.spacingPresets.radius.md,
+        backgroundColor: colors.background.tertiary,
+        borderRadius: spacing.spacingPresets.radius.md,
         alignItems: 'center',
         justifyContent: 'center',
         flexShrink: 0,
@@ -136,7 +139,7 @@ function FeatureCard({
         <Ionicons name={icon as any} size={28} color={accentColor} />
       </View>
       <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Text variant="label" style={{ marginBottom: THEME.spacing.xs }}>
+        <Text variant="label" style={{ marginBottom: spacing.xs }}>
           {title}
         </Text>
         <Text variant="bodySmall" color="secondary">

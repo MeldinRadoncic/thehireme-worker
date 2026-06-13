@@ -3,7 +3,7 @@
  * All components are theme-aware and consistent across the app
  *
  * Usage:
- * import { Button, Input, Card, Text, Label, ErrorMessage, LoadingSpinner } from '@/components';
+ * import { Button, Input, Card, Text, Label, ErrorMessage, LoadingSpinner, ThemeToggle } from '@/components';
  */
 
 export { Button } from './Button';
@@ -13,3 +13,4 @@ export { Text } from './Text';
 export { Label } from './Label';
 export { ErrorMessage } from './ErrorMessage';
 export { LoadingSpinner } from './LoadingSpinner';
+export { ThemeToggle } from './ThemeToggle';

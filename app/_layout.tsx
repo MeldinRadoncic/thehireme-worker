@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { LocationProvider } from '@/contexts/LocationContext';
+import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 
 const tokenCache = {
   async getToken(key: string) {
@@ -26,42 +27,52 @@ const tokenCache = {
   },
 };
 
+function RootLayoutContent() {
+  const { isDark } = useTheme();
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        animationEnabled: true,
+        cardStyle: { backgroundColor: isDark ? '#0f172a' : '#ffffff' },
+      }}
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen
+        name="(onboarding)"
+        options={{ animationEnabled: false }}
+      />
+      <Stack.Screen
+        name="(auth)"
+        options={{ animationEnabled: false }}
+      />
+      <Stack.Screen
+        name="(root)"
+        options={{ animationEnabled: false }}
+      />
+    </Stack>
+  );
+}
+
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <ClerkProvider
-          tokenCache={tokenCache}
-          publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
-        >
-          <LanguageProvider>
-            <LocationProvider>
-              <AuthProvider>
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                    animationEnabled: true,
-                    cardStyle: { backgroundColor: '#ffffff' },
-                  }}
-                >
-                  <Stack.Screen name="index" />
-                  <Stack.Screen
-                    name="(onboarding)"
-                    options={{ animationEnabled: false }}
-                  />
-                  <Stack.Screen
-                    name="(auth)"
-                    options={{ animationEnabled: false }}
-                  />
-                  <Stack.Screen
-                    name="(root)"
-                    options={{ animationEnabled: false }}
-                  />
-                </Stack>
-              </AuthProvider>
-            </LocationProvider>
-          </LanguageProvider>
-        </ClerkProvider>
+        <ThemeProvider>
+          <ClerkProvider
+            tokenCache={tokenCache}
+            publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+          >
+            <LanguageProvider>
+              <LocationProvider>
+                <AuthProvider>
+                  <RootLayoutContent />
+                </AuthProvider>
+              </LocationProvider>
+            </LanguageProvider>
+          </ClerkProvider>
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

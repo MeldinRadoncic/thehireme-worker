@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TextInput, View, Text, TouchableOpacity, KeyboardTypeOptions } from 'react-native';
+import { TextInput, View, Text as RNText, TouchableOpacity, KeyboardTypeOptions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { THEME } from '@/constants/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 interface InputProps {
   // Content
@@ -49,6 +49,8 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  // Use dynamic theme instead of static THEME
+  const { colors, spacing, a11y, typography, fonts } = useThemedStyles();
 
   const getKeyboardType = (): KeyboardTypeOptions => {
     const keyboardMap: Record<string, KeyboardTypeOptions> = {
@@ -63,27 +65,27 @@ export const Input: React.FC<InputProps> = ({
 
   // Border color based on state
   const getBorderColor = () => {
-    if (error) return THEME.colors.status.error;
-    if (isFocused) return THEME.colors.primary.main;
-    return THEME.colors.borders.light;
+    if (error) return colors.status.error;
+    if (isFocused) return colors.primary.main;
+    return colors.borders.light;
   };
 
   // Input background opacity based on state
-  const getBackgroundOpacity = disabled ? THEME.opacity.disabled : 1;
+  const getBackgroundOpacity = disabled ? 0.5 : 1;
 
   const inputId = testID || `input-${label?.toLowerCase().replace(/\s+/g, '-')}`;
   const errorId = `${inputId}-error`;
   const helperId = `${inputId}-helper`;
 
   return (
-    <View style={{ marginBottom: THEME.spacing.lg }}>
+    <View style={{ marginBottom: spacing.lg }}>
       {label && (
-        <View style={{ flexDirection: 'row', marginBottom: THEME.spacing.sm, alignItems: 'center' }}>
-          <Text
+        <View style={{ flexDirection: 'row', marginBottom: spacing.sm, alignItems: 'center' }}>
+          <RNText
             style={{
-              color: THEME.colors.text.primary,
-              fontSize: THEME.typography.label.fontSize,
-              fontWeight: THEME.fonts.weight.bold,
+              color: colors.text.primary,
+              fontSize: typography.label.fontSize,
+              fontWeight: fonts.weight.bold,
               letterSpacing: 0.5,
             }}
             // Accessibility: label for screen readers
@@ -93,11 +95,11 @@ export const Input: React.FC<InputProps> = ({
             {label}
           </Text>
           {required && (
-            <Text
+            <RNText
               style={{
-                color: THEME.colors.status.error,
-                marginLeft: THEME.spacing.xs,
-                fontWeight: THEME.fonts.weight.bold,
+                color: colors.status.error,
+                marginLeft: spacing.xs,
+                fontWeight: fonts.weight.bold,
               }}
               // Accessibility: indicate required field
               aria-label="required"
@@ -113,13 +115,13 @@ export const Input: React.FC<InputProps> = ({
         style={{
           flexDirection: 'row',
           alignItems: multiline ? 'flex-start' : 'center',
-          backgroundColor: THEME.colors.background.secondary,
+          backgroundColor: colors.background.secondary,
           opacity: getBackgroundOpacity,
           borderWidth: 2,
           borderColor: getBorderColor(),
           borderRadius: THEME.spacingPresets.radius.md,
-          paddingHorizontal: THEME.spacing.md,
-          paddingVertical: multiline ? THEME.spacing.md : undefined,
+          paddingHorizontal: spacing.md,
+          paddingVertical: multiline ? spacing.md : undefined,
           minHeight: multiline ? 100 : THEME.a11y.touchTargetSize,
           // Accessibility: focus outline for keyboard navigation
           ...(isFocused && {
@@ -132,25 +134,25 @@ export const Input: React.FC<InputProps> = ({
           <Ionicons
             name={icon as any}
             size={20}
-            color={error ? THEME.colors.status.error : THEME.colors.text.muted}
-            style={{ marginRight: THEME.spacing.sm }}
+            color={error ? colors.status.error : colors.text.muted}
+            style={{ marginRight: spacing.sm }}
             // Accessibility: decorative icon
             accessible={false}
           />
         )}
 
         {/* Text Input */}
-        <TextInput
+        <RNTextInput
           style={{
             flex: 1,
-            color: THEME.colors.text.primary,
-            fontSize: THEME.typography.body.fontSize,
-            paddingVertical: multiline ? 0 : THEME.spacing.md,
+            color: colors.text.primary,
+            fontSize: typography.body.fontSize,
+            paddingVertical: multiline ? 0 : spacing.md,
             minHeight: multiline ? 100 : undefined,
-            fontFamily: THEME.fonts.family.body,
+            fontFamily: fonts.family.body,
           }}
           placeholder={placeholder}
-          placeholderTextColor={THEME.colors.text.muted}
+          placeholderTextColor={colors.text.muted}
           value={value}
           onChangeText={onChangeText}
           onFocus={() => setIsFocused(true)}
@@ -179,7 +181,7 @@ export const Input: React.FC<InputProps> = ({
           <TouchableOpacity
             onPress={() => setShowPassword(!showPassword)}
             style={{
-              padding: THEME.spacing.sm,
+              padding: spacing.sm,
               minWidth: THEME.a11y.touchTargetSize,
               minHeight: THEME.a11y.touchTargetSize,
               alignItems: 'center',
@@ -194,7 +196,7 @@ export const Input: React.FC<InputProps> = ({
             <Ionicons
               name={showPassword ? 'eye' : 'eye-off'}
               size={20}
-              color={THEME.colors.text.muted}
+              color={colors.text.muted}
             />
           </TouchableOpacity>
         )}
@@ -205,9 +207,9 @@ export const Input: React.FC<InputProps> = ({
         <View
           style={{
             flexDirection: 'row',
-            marginTop: THEME.spacing.sm,
+            marginTop: spacing.sm,
             alignItems: 'center',
-            gap: THEME.spacing.xs,
+            gap: spacing.xs,
           }}
           accessible={true}
           accessibilityRole="alert"
@@ -217,13 +219,13 @@ export const Input: React.FC<InputProps> = ({
           <Ionicons
             name="alert-circle"
             size={16}
-            color={THEME.colors.status.error}
+            color={colors.status.error}
             accessible={false}
           />
-          <Text
+          <RNText
             style={{
-              color: THEME.colors.status.error,
-              fontSize: THEME.typography.bodySmall.fontSize,
+              color: colors.status.error,
+              fontSize: typography.bodySmall.fontSize,
               flex: 1,
             }}
           >
@@ -234,11 +236,11 @@ export const Input: React.FC<InputProps> = ({
 
       {/* Helper Text */}
       {helperText && !error && (
-        <Text
+        <RNText
           style={{
-            color: THEME.colors.text.muted,
-            fontSize: THEME.typography.bodySmall.fontSize,
-            marginTop: THEME.spacing.sm,
+            color: colors.text.muted,
+            fontSize: typography.bodySmall.fontSize,
+            marginTop: spacing.sm,
           }}
           testID={helperId}
         >

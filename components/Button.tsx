@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, ActivityIndicator, AccessibilityRole } from 'react-native';
-import { THEME } from '@/constants/theme';
+import { TouchableOpacity, Text as RNText, View, ActivityIndicator, AccessibilityRole } from 'react-native';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 interface ButtonProps {
   // Content
@@ -41,32 +41,34 @@ export const Button: React.FC<ButtonProps> = ({
   testID,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
+  // Use dynamic theme instead of static THEME
+  const { colors, spacing, spacingPresets, shadows, opacity, typography, fonts, a11y } = useThemedStyles();
 
   const getButtonStyle = () => {
     const baseStyle: any = {
-      borderRadius: THEME.spacingPresets.radius.md,
+      borderRadius: spacingPresets.radius.md,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: THEME.spacing.sm,
-      minHeight: THEME.a11y.touchTargetSize,
+      gap: spacing.sm,
+      minHeight: a11y.touchTargetSize,
     };
 
     // Size variants
     const sizeStyles = {
       small: {
-        paddingVertical: THEME.spacing.sm,
-        paddingHorizontal: THEME.spacing.md,
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.md,
         minHeight: 36,
       },
       medium: {
-        paddingVertical: THEME.spacing.md,
-        paddingHorizontal: THEME.spacing.lg,
+        paddingVertical: spacing.md,
+        paddingHorizontal: spacing.lg,
         minHeight: 44,
       },
       large: {
-        paddingVertical: THEME.spacing.lg,
-        paddingHorizontal: THEME.spacing.xl,
+        paddingVertical: spacing.lg,
+        paddingHorizontal: spacing.xl,
         minHeight: 52,
       },
     };
@@ -77,18 +79,18 @@ export const Button: React.FC<ButtonProps> = ({
       if (disabled || loading) {
         return {
           primary: {
-            backgroundColor: THEME.colors.background.tertiary,
-            opacity: THEME.opacity.disabled,
+            backgroundColor: colors.background.tertiary,
+            opacity: opacity.disabled,
           },
           secondary: {
-            backgroundColor: THEME.colors.background.tertiary,
-            opacity: THEME.opacity.disabled,
+            backgroundColor: colors.background.tertiary,
+            opacity: opacity.disabled,
           },
           ghost: {
             backgroundColor: 'transparent',
             borderWidth: 2,
-            borderColor: THEME.colors.borders.light,
-            opacity: THEME.opacity.disabled,
+            borderColor: colors.borders.light,
+            opacity: opacity.disabled,
           },
         };
       }
@@ -97,18 +99,18 @@ export const Button: React.FC<ButtonProps> = ({
       if (isPressed) {
         return {
           primary: {
-            backgroundColor: THEME.colors.primary.dark,
-            ...THEME.shadows.md,
+            backgroundColor: colors.primary.dark,
+            ...shadows.md,
           },
           secondary: {
-            backgroundColor: THEME.colors.background.secondary,
-            ...THEME.shadows.md,
+            backgroundColor: colors.background.secondary,
+            ...shadows.md,
           },
           ghost: {
-            backgroundColor: THEME.colors.primary.main,
-            opacity: THEME.opacity.hover,
+            backgroundColor: colors.primary.main,
+            opacity: opacity.hover,
             borderWidth: 2,
-            borderColor: THEME.colors.primary.main,
+            borderColor: colors.primary.main,
           },
         };
       }
@@ -116,17 +118,17 @@ export const Button: React.FC<ButtonProps> = ({
       // Normal state
       return {
         primary: {
-          backgroundColor: THEME.colors.primary.main,
-          ...THEME.shadows.sm,
+          backgroundColor: colors.primary.main,
+          ...shadows.sm,
         },
         secondary: {
-          backgroundColor: THEME.colors.background.tertiary,
-          ...THEME.shadows.sm,
+          backgroundColor: colors.background.tertiary,
+          ...shadows.sm,
         },
         ghost: {
           backgroundColor: 'transparent',
           borderWidth: 2,
-          borderColor: THEME.colors.primary.main,
+          borderColor: colors.primary.main,
         },
       };
     };
@@ -143,15 +145,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const getTextStyle = () => {
     const colorMap = {
-      primary: THEME.colors.text.primary,
-      secondary: THEME.colors.text.primary,
-      ghost: disabled || loading ? THEME.colors.text.muted : THEME.colors.primary.main,
+      primary: colors.text.primary,
+      secondary: colors.text.primary,
+      ghost: disabled || loading ? colors.text.muted : colors.primary.main,
     };
 
     return {
       color: colorMap[variant],
-      fontSize: THEME.typography.button.fontSize,
-      fontWeight: THEME.fonts.weight.bold,
+      fontSize: typography.button.fontSize,
+      fontWeight: fonts.weight.bold,
     };
   };
 
@@ -162,7 +164,7 @@ export const Button: React.FC<ButtonProps> = ({
       ) : (
         <>
           {icon && iconPosition === 'left' && icon}
-          <Text style={getTextStyle()}>{title}</Text>
+          <RNText style={getTextStyle()}>{title}</RNText>
           {icon && iconPosition === 'right' && icon}
         </>
       )}

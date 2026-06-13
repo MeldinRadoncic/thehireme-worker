@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text as RNText, TextProps as RNTextProps } from 'react-native';
-import { THEME } from '@/constants/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 interface TextProps extends RNTextProps {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'bodySmall' | 'caption' | 'label';
@@ -18,32 +18,35 @@ export const Text: React.FC<TextProps> = ({
   style,
   ...props
 }) => {
+  // Use dynamic theme instead of static THEME
+  const { colors, typography, fonts } = useThemedStyles();
+
   const getColorValue = () => {
     const colorMap = {
-      primary: THEME.colors.text.primary,
-      secondary: THEME.colors.text.secondary,
-      tertiary: THEME.colors.text.tertiary,
-      muted: THEME.colors.text.muted,
-      error: THEME.colors.status.error,
-      success: THEME.colors.status.success,
+      primary: colors.text.primary,
+      secondary: colors.text.secondary,
+      tertiary: colors.text.tertiary,
+      muted: colors.text.muted,
+      error: colors.status.error,
+      success: colors.status.success,
     };
     return colorMap[color];
   };
 
   const getWeightValue = () => {
     if (weight) {
-      return THEME.fonts.weight[weight];
+      return fonts.weight[weight];
     }
-    return THEME.typography[variant].fontWeight;
+    return typography[variant].fontWeight;
   };
 
   const textStyle = {
-    fontSize: THEME.typography[variant].fontSize,
+    fontSize: typography[variant].fontSize,
     fontWeight: getWeightValue(),
-    lineHeight: THEME.typography[variant].lineHeight * THEME.typography[variant].fontSize,
+    lineHeight: typography[variant].lineHeight * typography[variant].fontSize,
     color: getColorValue(),
     textAlign: align as any,
-    letterSpacing: THEME.typography[variant].letterSpacing,
+    letterSpacing: typography[variant].letterSpacing,
   };
 
   return (

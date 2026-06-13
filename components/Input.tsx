@@ -93,7 +93,7 @@ export const Input: React.FC<InputProps> = ({
             accessibilityRole="text"
           >
             {label}
-          </Text>
+          </RNText>
           {required && (
             <RNText
               style={{
@@ -105,7 +105,7 @@ export const Input: React.FC<InputProps> = ({
               aria-label="required"
             >
               *
-            </Text>
+            </RNText>
           )}
         </View>
       )}
@@ -230,7 +230,7 @@ export const Input: React.FC<InputProps> = ({
             }}
           >
             {error}
-          </Text>
+          </RNText>
         </View>
       )}
 

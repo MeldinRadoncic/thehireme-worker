@@ -245,7 +245,7 @@ export const Input: React.FC<InputProps> = ({
           testID={helperId}
         >
           {helperText}
-        </Text>
+        </RNText>
       )}
     </View>
   );

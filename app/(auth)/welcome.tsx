@@ -6,7 +6,8 @@ import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 export default function WelcomeScreen() {
   const router = useRouter();
-  const { colors, spacing } = useThemedStyles();
+  const themed = useThemedStyles();
+  const { colors, spacing, spacingPresets } = themed;
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
@@ -21,7 +22,7 @@ export default function WelcomeScreen() {
                 width: 48,
                 height: 48,
                 backgroundColor: colors.primary.main,
-                borderRadius: spacing.spacingPresets.radius.md,
+                borderRadius: spacingPresets.radius.md,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
@@ -115,12 +116,12 @@ function FeatureCard({
   description: string;
   accentColor: string;
 }) {
-  const { colors, spacing } = useThemedStyles();
+  const { colors, spacing, spacingPresets } = useThemedStyles();
 
   return (
     <View style={{
       backgroundColor: colors.background.secondary,
-      borderRadius: spacing.spacingPresets.radius.lg,
+      borderRadius: spacingPresets.radius.lg,
       padding: spacing.md,
       flexDirection: 'row',
       gap: spacing.md,
@@ -131,7 +132,7 @@ function FeatureCard({
         width: 56,
         height: 56,
         backgroundColor: colors.background.tertiary,
-        borderRadius: spacing.spacingPresets.radius.md,
+        borderRadius: spacingPresets.radius.md,
         alignItems: 'center',
         justifyContent: 'center',
         flexShrink: 0,

@@ -14,6 +14,7 @@ import { SHADOWS } from '@/constants/shadows';
 import { MOTION, OPACITY, Z_INDEX } from '@/constants/motion';
 import { SPACING, SPACING_PRESETS, COMPONENT_SIZES } from '@/constants/spacing';
 import { TYPOGRAPHY, FONTS } from '@/constants/typography';
+import { A11Y } from '@/constants/accessibility';
 
 export const useThemedStyles = () => {
   const { theme } = useTheme();
@@ -36,6 +37,7 @@ export const useThemedStyles = () => {
       componentSizes: COMPONENT_SIZES,
       typography: TYPOGRAPHY,
       fonts: FONTS,
+      a11y: A11Y,
 
       // Helpers
       getTheme: () => themeData,

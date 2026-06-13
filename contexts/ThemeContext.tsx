@@ -30,7 +30,7 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const systemColorScheme = useColorScheme();
-  const [theme, setThemeState] = useState<ThemeType>('dark');
+  const [theme, setThemeState] = useState<ThemeType>('light');
   const [isLoading, setIsLoading] = useState(true);
   const [storageTheme, setStorageTheme] = useState<string | null>(null);
 
@@ -49,8 +49,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
           const systemTheme = systemColorScheme === 'dark' ? 'dark' : 'light';
           setThemeState(systemTheme);
         } else {
-          // Default to dark if nothing saved
-          setThemeState('dark');
+          // Default to light if nothing saved
+          setThemeState('light');
         }
       } catch (error) {
         console.warn('Failed to load theme preference:', error);

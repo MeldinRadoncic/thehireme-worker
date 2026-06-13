@@ -35,7 +35,7 @@ function RootLayoutContent() {
       screenOptions={{
         headerShown: false,
         animationEnabled: true,
-        cardStyle: { backgroundColor: isDark ? '#0f172a' : '#ffffff' },
+        cardStyle: { backgroundColor: isDark ? '#0f172a' : '#ffffff' }, // Light by default
       }}
     >
       <Stack.Screen name="index" />

@@ -122,11 +122,11 @@ export const Input: React.FC<InputProps> = ({
           borderRadius: THEME.spacingPresets.radius.md,
           paddingHorizontal: spacing.md,
           paddingVertical: multiline ? spacing.md : undefined,
-          minHeight: multiline ? 100 : THEME.a11y.touchTargetSize,
+          minHeight: multiline ? 100 : a11y.touchTargetSize,
           // Accessibility: focus outline for keyboard navigation
           ...(isFocused && {
-            outlineWidth: THEME.a11y.focus.outlineWidth,
-            outlineColor: THEME.a11y.focus.outlineColor,
+            outlineWidth: a11y.focus.outlineWidth,
+            outlineColor: a11y.focus.outlineColor,
           }),
         }}
       >
@@ -182,8 +182,8 @@ export const Input: React.FC<InputProps> = ({
             onPress={() => setShowPassword(!showPassword)}
             style={{
               padding: spacing.sm,
-              minWidth: THEME.a11y.touchTargetSize,
-              minHeight: THEME.a11y.touchTargetSize,
+              minWidth: a11y.touchTargetSize,
+              minHeight: a11y.touchTargetSize,
               alignItems: 'center',
               justifyContent: 'center',
             }}

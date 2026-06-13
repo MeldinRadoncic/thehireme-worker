@@ -4,11 +4,12 @@ import { useSignIn } from '@clerk/expo';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, Input, ErrorMessage } from '@/components';
-import { THEME } from '@/constants/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 export default function LoginScreen() {
   const router = useRouter();
   const { signIn, setActive, isLoaded } = useSignIn();
+  const { colors, spacing } = useThemedStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -44,20 +45,20 @@ export default function LoginScreen() {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: THEME.colors.background.primary }} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
       {/* Header */}
-      <View style={{ paddingHorizontal: THEME.spacing.lg, paddingTop: THEME.spacing.lg, paddingBottom: THEME.spacing['4xl'] }}>
+      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing['4xl'] }}>
         {/* Back Button */}
         <TouchableOpacity
           onPress={() => router.back()}
-          style={{ marginBottom: THEME.spacing.lg, flexDirection: 'row', alignItems: 'center', gap: THEME.spacing.sm }}
+          style={{ marginBottom: spacing.lg, flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}
         >
-          <Ionicons name="chevron-back" size={24} color={THEME.colors.text.secondary} />
+          <Ionicons name="chevron-back" size={24} color={colors.text.secondary} />
           <Text variant="body">Back</Text>
         </TouchableOpacity>
 
         {/* Title */}
-        <Text variant="h2" style={{ marginBottom: THEME.spacing.md }}>
+        <Text variant="h2" style={{ marginBottom: spacing.md }}>
           Welcome Back
         </Text>
         <Text variant="body" color="secondary">
@@ -66,8 +67,8 @@ export default function LoginScreen() {
       </View>
 
       {/* Form Section */}
-      <View style={{ paddingHorizontal: THEME.spacing.lg, paddingBottom: THEME.spacing.lg }}>
-        <View style={{ gap: THEME.spacing.lg, marginBottom: THEME.spacing.lg }}>
+      <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.lg }}>
+        <View style={{ gap: spacing.lg, marginBottom: spacing.lg }}>
           {/* Email Input */}
           <Input
             type="email"
@@ -111,7 +112,7 @@ export default function LoginScreen() {
         />
 
         {/* Sign Up Link */}
-        <View style={{ marginTop: THEME.spacing['4xl'], flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: THEME.spacing.sm }}>
+        <View style={{ marginTop: spacing['4xl'], flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm }}>
           <Text variant="body" color="secondary">Don't have an account?</Text>
           <TouchableOpacity onPress={() => router.push('/(auth)/signup')} activeOpacity={0.7}>
             <Text variant="body" color="primary">Sign Up</Text>

@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, ErrorMessage, BackButton } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useLanguageTranslations } from '@/hooks/useLanguageTranslations';
 import { useBackButton } from '@/hooks/useBackButton';
 
 export default function VerifyEmailScreen() {
@@ -12,6 +13,7 @@ export default function VerifyEmailScreen() {
   const { signUp, setActive, isLoaded } = useSignUp();
   const { colors, spacing, spacingPresets } = useThemedStyles();
   const { shouldShowBack, handleBack } = useBackButton({ screen: 'verify-email' });
+  const t = useLanguageTranslations('verify-email-screen');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -82,10 +84,10 @@ export default function VerifyEmailScreen() {
 
         {/* Title */}
         <Text variant="h2" style={{ textAlign: 'center', marginBottom: spacing.md }}>
-          Verify Email
+          {t.verifyEmailTitle}
         </Text>
         <Text variant="body" color="secondary" style={{ textAlign: 'center' }}>
-          We sent a 6-digit code to your email. Enter it below to confirm your account.
+          {t.verifyEmailSubtitle}
         </Text>
       </View>
 
@@ -94,7 +96,7 @@ export default function VerifyEmailScreen() {
         {/* Code Input */}
         <View>
           <TextInput
-            placeholder="000000"
+            placeholder={t.codePlaceholder}
             placeholderTextColor={colors.text.muted}
             value={code}
             onChangeText={(text) => setCode(text.replace(/[^0-9]/g, '').slice(0, 6))}
@@ -118,7 +120,7 @@ export default function VerifyEmailScreen() {
 
           {/* Progress */}
           <Text variant="bodySmall" color="secondary" style={{ textAlign: 'center', marginTop: spacing.md }}>
-            {code.length} of 6 digits
+            {code.length} {t.codeProgressLabel}
           </Text>
 
           {/* Progress Bar */}
@@ -140,7 +142,7 @@ export default function VerifyEmailScreen() {
       {/* Actions */}
       <View style={{ paddingHorizontal: spacing.lg, gap: spacing.md, marginBottom: spacing.lg }}>
         <Button
-          title="Verify"
+          title={t.verifyButton}
           onPress={handleVerify}
           disabled={loading || code.length !== 6}
           variant="primary"
@@ -152,8 +154,8 @@ export default function VerifyEmailScreen() {
         {/* Resend */}
         <TouchableOpacity onPress={handleResend} disabled={loading} activeOpacity={0.7}>
           <Text variant="bodySmall" color="secondary" style={{ textAlign: 'center' }}>
-            Didn't receive code?{' '}
-            <Text variant="bodySmall" color="primary">Resend</Text>
+            {t.didNotReceiveText}{' '}
+            <Text variant="bodySmall" color="primary">{t.resendLink}</Text>
           </Text>
         </TouchableOpacity>
       </View>

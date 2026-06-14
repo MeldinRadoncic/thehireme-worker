@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, Card, BackButton } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useLanguageTranslations } from '@/hooks/useLanguageTranslations';
 import { useBackButton } from '@/hooks/useBackButton';
 
 export default function WelcomeScreen() {
@@ -10,6 +11,7 @@ export default function WelcomeScreen() {
   const themed = useThemedStyles();
   const { colors, spacing, spacingPresets } = themed;
   const { shouldShowBack, handleBack } = useBackButton({ screen: 'welcome' });
+  const t = useLanguageTranslations('welcome-screen');
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
@@ -30,23 +32,23 @@ export default function WelcomeScreen() {
               }}>
                 <Ionicons name="briefcase" size={24} color="white" />
               </View>
-              <Text variant="h2">TheHireMe</Text>
+              <Text variant="h2">{t.brandName}</Text>
             </View>
             <Text variant="body" color="secondary">
-              Where skilled professionals meet local clients seeking excellence
+              {t.tagline}
             </Text>
           </View>
 
           {/* Hero Headline */}
           <View style={{ marginBottom: spacing['5xl'] }}>
             <Text variant="h1" style={{ marginBottom: spacing.md }}>
-              Build Your Reputation
+              {t.heroTitle}
             </Text>
             <Text variant="h1" color="secondary" style={{ marginBottom: spacing.lg }}>
-              Earn More
+              {t.heroSubtitle}
             </Text>
             <Text variant="body" color="secondary">
-              Connect with local clients, showcase your expertise, and grow your business across Europe
+              {t.heroDescription}
             </Text>
           </View>
 
@@ -54,20 +56,20 @@ export default function WelcomeScreen() {
           <View style={{ gap: spacing.md, marginBottom: spacing['5xl'] }}>
             <FeatureCard
               icon="person-circle"
-              title="Premium Profile"
-              description="Build a stunning professional profile with portfolio, videos, and verified reviews"
+              title={t.premiumProfileTitle}
+              description={t.premiumProfileDescription}
               accentColor={colors.primary.main}
             />
             <FeatureCard
               icon="trending-up"
-              title="Grow Your Earnings"
-              description="Unlock credit-based promotions and boost visibility to thousands of local clients"
+              title={t.growEarningsTitle}
+              description={t.growEarningsDescription}
               accentColor={colors.secondary.cyan}
             />
             <FeatureCard
               icon="star"
-              title="Build Trust"
-              description="Earn verified reviews and ratings that showcase your expertise and reliability"
+              title={t.buildTrustTitle}
+              description={t.buildTrustDescription}
               accentColor={colors.secondary.yellow}
             />
           </View>
@@ -78,7 +80,7 @@ export default function WelcomeScreen() {
           <View style={{ gap: spacing.md }}>
             {/* Primary CTA */}
             <Button
-              title="Get Started"
+              title={t.getStartedButton}
               onPress={() => router.push('/(auth)/signup')}
               variant="primary"
               size="large"
@@ -87,7 +89,7 @@ export default function WelcomeScreen() {
 
             {/* Secondary CTA */}
             <Button
-              title="Sign In"
+              title={t.signInButton}
               onPress={() => router.push('/(auth)/login')}
               variant="ghost"
               size="large"
@@ -97,7 +99,7 @@ export default function WelcomeScreen() {
             <View style={{ marginTop: spacing.lg, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm }}>
               <Ionicons name="shield-checkmark" size={16} color={colors.primary.main} />
               <Text variant="bodySmall" color="secondary">
-                Trusted by 5,000+ service professionals
+                {t.trustSignal}
               </Text>
             </View>
           </View>

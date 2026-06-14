@@ -16,3 +16,4 @@ export { LoadingSpinner } from './LoadingSpinner';
 export { ThemeToggle } from './ThemeToggle';
 export { BackButton } from './BackButton';
 export { ConfirmationDialog } from './ConfirmationDialog';
+export { LanguageSwitcher } from './LanguageSwitcher';

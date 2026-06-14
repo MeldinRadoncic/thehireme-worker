@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, Input, ErrorMessage, BackButton } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useLanguageTranslations } from '@/hooks/useLanguageTranslations';
 import { useBackButton } from '@/hooks/useBackButton';
 
 export default function SignupScreen() {
@@ -12,6 +13,7 @@ export default function SignupScreen() {
   const { signUp, setActive, isLoaded } = useSignUp();
   const { colors, spacing, spacingPresets } = useThemedStyles();
   const { shouldShowBack, handleBack } = useBackButton({ screen: 'signup' });
+  const t = useLanguageTranslations('signup-screen');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -61,10 +63,10 @@ export default function SignupScreen() {
 
         {/* Title */}
         <Text variant="h2" style={{ marginBottom: spacing.md }}>
-          Get Started
+          {t.getStartedTitle}
         </Text>
         <Text variant="body" color="secondary">
-          Create your TheHireMe profile and start connecting with clients
+          {t.getStartedSubtitle}
         </Text>
       </View>
 
@@ -75,8 +77,8 @@ export default function SignupScreen() {
           <View style={{ flexDirection: 'row', gap: spacing.md }}>
             <View style={{ flex: 1 }}>
               <Input
-                label="First Name"
-                placeholder="John"
+                label={t.firstNameLabel}
+                placeholder={t.firstNamePlaceholder}
                 value={firstName}
                 onChangeText={setFirstName}
                 disabled={loading}
@@ -84,8 +86,8 @@ export default function SignupScreen() {
             </View>
             <View style={{ flex: 1 }}>
               <Input
-                label="Last Name"
-                placeholder="Doe"
+                label={t.lastNameLabel}
+                placeholder={t.lastNamePlaceholder}
                 value={lastName}
                 onChangeText={setLastName}
                 disabled={loading}
@@ -96,8 +98,8 @@ export default function SignupScreen() {
           {/* Email Input */}
           <Input
             type="email"
-            label="Email Address"
-            placeholder="john@example.com"
+            label={t.emailLabel}
+            placeholder={t.emailPlaceholder}
             value={email}
             onChangeText={setEmail}
             disabled={loading}
@@ -106,8 +108,8 @@ export default function SignupScreen() {
           {/* Password Input */}
           <Input
             type="password"
-            label="Password"
-            placeholder="••••••••"
+            label={t.passwordLabel}
+            placeholder={t.passwordPlaceholder}
             value={password}
             onChangeText={setPassword}
             disabled={loading}
@@ -135,8 +137,7 @@ export default function SignupScreen() {
               {termsAccepted && <Ionicons name="checkmark" size={14} color="white" />}
             </View>
             <Text variant="bodySmall" color="secondary" style={{ flex: 1 }}>
-              I agree to the{' '}
-              <Text variant="bodySmall" color="primary">Terms of Service</Text> and understand I'll start with 100 free credits
+              {t.termsCheckbox}
             </Text>
           </TouchableOpacity>
 
@@ -146,7 +147,7 @@ export default function SignupScreen() {
 
         {/* Sign Up Button */}
         <Button
-          title="Create Account"
+          title={t.createAccountButton}
           onPress={handleSignUp}
           disabled={loading || !firstName || !lastName || !email || !password || !termsAccepted}
           variant="primary"
@@ -157,9 +158,9 @@ export default function SignupScreen() {
 
         {/* Sign In Link */}
         <View style={{ marginTop: spacing['4xl'], flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm }}>
-          <Text variant="body" color="secondary">Already have an account?</Text>
+          <Text variant="body" color="secondary">{t.haveAccountText}</Text>
           <TouchableOpacity onPress={() => router.push('/(auth)/login')} activeOpacity={0.7}>
-            <Text variant="body" color="primary">Sign In</Text>
+            <Text variant="body" color="primary">{t.signUpLink}</Text>
           </TouchableOpacity>
         </View>
       </View>

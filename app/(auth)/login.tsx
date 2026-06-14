@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, Input, ErrorMessage, BackButton } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useLanguageTranslations } from '@/hooks/useLanguageTranslations';
 import { useBackButton } from '@/hooks/useBackButton';
 
 export default function LoginScreen() {
@@ -12,6 +13,7 @@ export default function LoginScreen() {
   const { signIn, setActive, isLoaded } = useSignIn();
   const { colors, spacing } = useThemedStyles();
   const { shouldShowBack, handleBack } = useBackButton({ screen: 'login' });
+  const t = useLanguageTranslations('login-screen');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -60,10 +62,10 @@ export default function LoginScreen() {
 
         {/* Title */}
         <Text variant="h2" style={{ marginBottom: spacing.md }}>
-          Welcome Back
+          {t.welcomeBackTitle}
         </Text>
         <Text variant="body" color="secondary">
-          Sign in to your TheHireMe account and continue growing your business
+          {t.welcomeBackSubtitle}
         </Text>
       </View>
 
@@ -73,27 +75,27 @@ export default function LoginScreen() {
           {/* Email Input */}
           <Input
             type="email"
-            placeholder="name@example.com"
+            placeholder={t.emailPlaceholder}
             value={email}
             onChangeText={setEmail}
             disabled={loading}
-            label="Email Address"
+            label={t.emailLabel}
           />
 
           {/* Password Input */}
           <Input
             type="password"
-            placeholder="••••••••"
+            placeholder={t.passwordPlaceholder}
             value={password}
             onChangeText={setPassword}
             disabled={loading}
-            label="Password"
+            label={t.passwordLabel}
           />
 
           {/* Forgot Password */}
           <TouchableOpacity activeOpacity={0.7}>
             <Text variant="body" color="primary">
-              Forgot password?
+              {t.forgotPasswordButton}
             </Text>
           </TouchableOpacity>
 
@@ -103,7 +105,7 @@ export default function LoginScreen() {
 
         {/* Sign In Button */}
         <Button
-          title="Sign In"
+          title={t.signInButton}
           onPress={handleSignIn}
           disabled={loading || !email || !password}
           variant="primary"
@@ -114,9 +116,9 @@ export default function LoginScreen() {
 
         {/* Sign Up Link */}
         <View style={{ marginTop: spacing['4xl'], flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: spacing.sm }}>
-          <Text variant="body" color="secondary">Don't have an account?</Text>
+          <Text variant="body" color="secondary">{t.noAccountText}</Text>
           <TouchableOpacity onPress={() => router.push('/(auth)/signup')} activeOpacity={0.7}>
-            <Text variant="body" color="primary">Sign Up</Text>
+            <Text variant="body" color="primary">{t.signUpLink}</Text>
           </TouchableOpacity>
         </View>
       </View>

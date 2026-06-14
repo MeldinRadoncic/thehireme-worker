@@ -48,14 +48,14 @@ export default function LoginScreen() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
-      {/* Header */}
-      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing['4xl'] }}>
-        {/* Back Button */}
+      {/* Header with Back Button at Top Left */}
+      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg }}>
+        {/* Back Button - Top Left */}
         <BackButton
           onPress={handleBack}
           showButton={shouldShowBack}
           size="medium"
-          style={{ marginBottom: spacing.lg }}
+          style={{ marginBottom: spacing.lg, alignSelf: 'flex-start' }}
         />
 
         {/* Title */}

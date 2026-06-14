@@ -54,14 +54,14 @@ export default function VerifyEmailScreen() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
-      {/* Header */}
-      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing['4xl'] }}>
-        {/* Back Button */}
+      {/* Header with Back Button at Top Left */}
+      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg }}>
+        {/* Back Button - Top Left */}
         <BackButton
           onPress={handleBack}
           showButton={shouldShowBack}
           size="medium"
-          style={{ marginBottom: spacing.lg }}
+          style={{ marginBottom: spacing.lg, alignSelf: 'flex-start' }}
         />
 
         {/* Icon */}
@@ -75,6 +75,7 @@ export default function VerifyEmailScreen() {
           marginHorizontal: 'auto',
           alignSelf: 'center',
           marginBottom: spacing.lg,
+          marginTop: spacing.lg,
         }}>
           <Ionicons name="mail" size={36} color="white" />
         </View>

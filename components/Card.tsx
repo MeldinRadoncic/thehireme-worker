@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ViewStyle } from 'react-native';
-import { THEME } from '@/constants/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 interface CardProps {
   children: React.ReactNode;
@@ -17,11 +17,13 @@ export const Card: React.FC<CardProps> = ({
   style,
   onPress,
 }) => {
+  const { colors, spacingPresets } = useThemedStyles();
+
   const getPaddingValue = () => {
     const paddingMap = {
-      compact: THEME.spacingPresets.padding.compact,
-      normal: THEME.spacingPresets.padding.normal,
-      spacious: THEME.spacingPresets.padding.spacious,
+      compact: spacingPresets.padding.compact,
+      normal: spacingPresets.padding.normal,
+      spacious: spacingPresets.padding.spacious,
     };
     const p = paddingMap[padding];
     return {
@@ -33,16 +35,16 @@ export const Card: React.FC<CardProps> = ({
   const getVariantStyle = () => {
     const variantMap = {
       default: {
-        backgroundColor: THEME.colors.background.secondary,
+        backgroundColor: colors.background.secondary,
         borderWidth: 0,
       },
       bordered: {
-        backgroundColor: THEME.colors.background.secondary,
+        backgroundColor: colors.background.secondary,
         borderWidth: 2,
-        borderColor: THEME.colors.primary.main,
+        borderColor: colors.primary.main,
       },
       elevated: {
-        backgroundColor: THEME.colors.background.secondary,
+        backgroundColor: colors.background.secondary,
         borderWidth: 0,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -55,7 +57,7 @@ export const Card: React.FC<CardProps> = ({
   };
 
   const cardStyle = {
-    borderRadius: THEME.spacingPresets.radius.lg,
+    borderRadius: spacingPresets.radius.lg,
     ...getPaddingValue(),
     ...getVariantStyle(),
     ...style,

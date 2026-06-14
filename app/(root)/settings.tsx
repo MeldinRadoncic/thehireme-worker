@@ -12,7 +12,7 @@ import { Text, ThemeToggle } from '@/components';
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const { colors, spacing } = useThemedStyles();
+  const { colors, spacing, spacingPresets } = useThemedStyles();
   const { theme } = useTheme();
 
   return (
@@ -55,7 +55,7 @@ export default function SettingsScreen() {
           <View
             style={{
               backgroundColor: colors.background.secondary,
-              borderRadius: spacing.spacingPresets.radius.lg,
+              borderRadius: spacingPresets.radius.lg,
               padding: spacing.lg,
               gap: spacing.lg,
             }}
@@ -74,7 +74,7 @@ export default function SettingsScreen() {
             <View
               style={{
                 backgroundColor: colors.background.tertiary,
-                borderRadius: spacing.spacingPresets.radius.md,
+                borderRadius: spacingPresets.radius.md,
                 paddingHorizontal: spacing.md,
                 paddingVertical: spacing.md,
                 flexDirection: 'row',
@@ -103,7 +103,7 @@ export default function SettingsScreen() {
           <View
             style={{
               backgroundColor: colors.background.secondary,
-              borderRadius: spacing.spacingPresets.radius.lg,
+              borderRadius: spacingPresets.radius.lg,
               padding: spacing.lg,
               gap: spacing.md,
             }}

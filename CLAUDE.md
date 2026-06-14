@@ -8,6 +8,19 @@ This worker app is a dedicated React Native mobile application for The Hire Me p
 
 This project has its own separate GitHub repository, its own docs folder, and its own development rules.
 
+## Tech Stack
+
+This is a **mobile application** built with:
+
+- **React Native** - Cross-platform mobile framework
+- **Expo** - React Native development platform and runtime
+- **Clerk** - User authentication and identity management
+- **Stripe** - Payment processing for credit purchases
+- **Supabase** - Backend database and edge functions
+- **NativeWind (Tailwind CSS)** - Utility-first styling for React Native
+
+**Development Command:** `npx expo start`
+
 ### Before Writing Any Code
 
 Fully read and analyze:

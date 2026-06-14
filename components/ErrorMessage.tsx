@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { THEME } from '@/constants/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 interface ErrorMessageProps {
   message: string;
@@ -12,34 +12,36 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({
   message,
   showIcon = true,
 }) => {
+  const { colors, spacing, spacingPresets, typography } = useThemedStyles();
+
   return (
     <View
       style={{
         flexDirection: 'row',
         alignItems: 'flex-start',
-        gap: THEME.spacing.sm,
-        backgroundColor: THEME.colors.status.errorLight,
+        gap: spacing.sm,
+        backgroundColor: colors.status.errorLight,
         borderWidth: 1,
-        borderColor: THEME.colors.status.error,
-        borderRadius: THEME.spacingPresets.radius.md,
-        padding: THEME.spacing.md,
-        marginVertical: THEME.spacing.md,
+        borderColor: colors.status.error,
+        borderRadius: spacingPresets.radius.md,
+        padding: spacing.md,
+        marginVertical: spacing.md,
       }}
     >
       {showIcon && (
         <Ionicons
           name="alert-circle"
           size={20}
-          color={THEME.colors.status.error}
-          style={{ marginTop: THEME.spacing.xs }}
+          color={colors.status.error}
+          style={{ marginTop: spacing.xs }}
         />
       )}
       <Text
         style={{
-          color: THEME.colors.status.error,
-          fontSize: THEME.typography.bodySmall.fontSize,
+          color: colors.status.error,
+          fontSize: typography.bodySmall.fontSize,
           flex: 1,
-          lineHeight: THEME.typography.bodySmall.lineHeight * THEME.typography.bodySmall.fontSize,
+          lineHeight: typography.bodySmall.lineHeight * typography.bodySmall.fontSize,
         }}
       >
         {message}

@@ -9,7 +9,7 @@ import { useThemedStyles } from '@/hooks/useThemedStyles';
 export default function VerifyEmailScreen() {
   const router = useRouter();
   const { signUp, setActive, isLoaded } = useSignUp();
-  const { colors, spacing } = useThemedStyles();
+  const { colors, spacing, spacingPresets } = useThemedStyles();
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

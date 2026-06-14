@@ -9,7 +9,7 @@ import { useThemedStyles } from '@/hooks/useThemedStyles';
 export default function SignupScreen() {
   const router = useRouter();
   const { signUp, setActive, isLoaded } = useSignUp();
-  const { colors, spacing } = useThemedStyles();
+  const { colors, spacing, spacingPresets } = useThemedStyles();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');

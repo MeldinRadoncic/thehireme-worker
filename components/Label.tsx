@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { THEME } from '@/constants/theme';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 interface LabelProps {
   text: string;
@@ -11,15 +11,18 @@ interface LabelProps {
 export const Label: React.FC<LabelProps> = ({
   text,
   required = false,
-  color = THEME.colors.text.primary,
+  color,
 }) => {
+  const { colors, spacing, typography, fonts } = useThemedStyles();
+  const labelColor = color || colors.text.primary;
+
   return (
-    <View style={{ flexDirection: 'row', marginBottom: THEME.spacing.sm, alignItems: 'center' }}>
+    <View style={{ flexDirection: 'row', marginBottom: spacing.sm, alignItems: 'center' }}>
       <Text
         style={{
-          color,
-          fontSize: THEME.typography.label.fontSize,
-          fontWeight: THEME.fonts.weight.bold,
+          color: labelColor,
+          fontSize: typography.label.fontSize,
+          fontWeight: fonts.weight.bold,
           letterSpacing: 0.5,
         }}
       >
@@ -28,9 +31,9 @@ export const Label: React.FC<LabelProps> = ({
       {required && (
         <Text
           style={{
-            color: THEME.colors.status.error,
-            marginLeft: THEME.spacing.xs,
-            fontWeight: THEME.fonts.weight.bold,
+            color: colors.status.error,
+            marginLeft: spacing.xs,
+            fontWeight: fonts.weight.bold,
           }}
         >
           *

@@ -50,7 +50,7 @@ export const Input: React.FC<InputProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   // Use dynamic theme instead of static THEME
-  const { colors, spacing, a11y, typography, fonts } = useThemedStyles();
+  const { colors, spacing, spacingPresets, a11y, typography, fonts } = useThemedStyles();
 
   const getKeyboardType = (): KeyboardTypeOptions => {
     const keyboardMap: Record<string, KeyboardTypeOptions> = {
@@ -119,7 +119,7 @@ export const Input: React.FC<InputProps> = ({
           opacity: getBackgroundOpacity,
           borderWidth: 2,
           borderColor: getBorderColor(),
-          borderRadius: THEME.spacingPresets.radius.md,
+          borderRadius: spacingPresets.radius.md,
           paddingHorizontal: spacing.md,
           paddingVertical: multiline ? spacing.md : undefined,
           minHeight: multiline ? 100 : a11y.touchTargetSize,
@@ -142,7 +142,7 @@ export const Input: React.FC<InputProps> = ({
         )}
 
         {/* Text Input */}
-        <RNTextInput
+        <TextInput
           style={{
             flex: 1,
             color: colors.text.primary,

@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Text } from './Text';
 
 interface BackButtonProps {
@@ -19,7 +20,8 @@ export const BackButton: React.FC<BackButtonProps> = ({
   style,
   accessibilityLabel = 'Go back',
 }) => {
-  const { colors, spacing, a11y } = useThemedStyles();
+  const { spacing, a11y } = useThemedStyles();
+  const { isDark } = useTheme();
 
   if (!showButton) {
     return null;
@@ -32,6 +34,9 @@ export const BackButton: React.FC<BackButtonProps> = ({
   };
 
   const config = sizeMap[size];
+
+  // Theme-aware icon color: white on dark mode, black on light mode
+  const iconColor = isDark ? '#ffffff' : '#1a202c';
 
   return (
     <TouchableOpacity
@@ -54,7 +59,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
       <Ionicons
         name="chevron-back"
         size={config.icon}
-        color={colors.text.primary}
+        color={iconColor}
       />
     </TouchableOpacity>
   );

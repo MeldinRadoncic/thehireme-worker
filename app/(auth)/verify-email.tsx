@@ -3,13 +3,15 @@ import { View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { useSignUp } from '@clerk/expo';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Button, Text, ErrorMessage } from '@/components';
+import { Button, Text, ErrorMessage, BackButton } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useBackButton } from '@/hooks/useBackButton';
 
 export default function VerifyEmailScreen() {
   const router = useRouter();
   const { signUp, setActive, isLoaded } = useSignUp();
   const { colors, spacing, spacingPresets } = useThemedStyles();
+  const { shouldShowBack, handleBack } = useBackButton({ screen: 'verify-email' });
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,7 +55,15 @@ export default function VerifyEmailScreen() {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
       {/* Header */}
-      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing['5xl'], paddingBottom: spacing['4xl'] }}>
+      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing['4xl'] }}>
+        {/* Back Button */}
+        <BackButton
+          onPress={handleBack}
+          showButton={shouldShowBack}
+          size="medium"
+          style={{ marginBottom: spacing.lg }}
+        />
+
         {/* Icon */}
         <View style={{
           width: 80,

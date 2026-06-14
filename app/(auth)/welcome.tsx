@@ -1,13 +1,15 @@
 import { View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Button, Text, Card } from '@/components';
+import { Button, Text, Card, BackButton } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useBackButton } from '@/hooks/useBackButton';
 
 export default function WelcomeScreen() {
   const router = useRouter();
   const themed = useThemedStyles();
   const { colors, spacing, spacingPresets } = themed;
+  const { shouldShowBack, handleBack } = useBackButton({ screen: 'welcome' });
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>

@@ -3,13 +3,15 @@ import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { useSignIn } from '@clerk/expo';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Button, Text, Input, ErrorMessage } from '@/components';
+import { Button, Text, Input, ErrorMessage, BackButton } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useBackButton } from '@/hooks/useBackButton';
 
 export default function LoginScreen() {
   const router = useRouter();
   const { signIn, setActive, isLoaded } = useSignIn();
   const { colors, spacing } = useThemedStyles();
+  const { shouldShowBack, handleBack } = useBackButton({ screen: 'login' });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -49,13 +51,12 @@ export default function LoginScreen() {
       {/* Header */}
       <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing['4xl'] }}>
         {/* Back Button */}
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={{ marginBottom: spacing.lg, flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}
-        >
-          <Ionicons name="chevron-back" size={24} color={colors.text.secondary} />
-          <Text variant="body">Back</Text>
-        </TouchableOpacity>
+        <BackButton
+          onPress={handleBack}
+          showButton={shouldShowBack}
+          size="medium"
+          style={{ marginBottom: spacing.lg }}
+        />
 
         {/* Title */}
         <Text variant="h2" style={{ marginBottom: spacing.md }}>

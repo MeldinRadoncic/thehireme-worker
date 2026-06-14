@@ -14,3 +14,5 @@ export { Label } from './Label';
 export { ErrorMessage } from './ErrorMessage';
 export { LoadingSpinner } from './LoadingSpinner';
 export { ThemeToggle } from './ThemeToggle';
+export { BackButton } from './BackButton';
+export { ConfirmationDialog } from './ConfirmationDialog';

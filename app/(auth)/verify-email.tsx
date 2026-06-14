@@ -54,9 +54,9 @@ export default function VerifyEmailScreen() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
-      {/* Header with Back Button at Top Left */}
-      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing.lg }}>
-        {/* Back Button - Top Left */}
+      {/* Header with Back Button at Top Left - Safe Area */}
+      <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing['4xl'] }}>
+        {/* Back Button - Top Left (Safe Area, below status bar) */}
         <BackButton
           onPress={handleBack}
           showButton={shouldShowBack}

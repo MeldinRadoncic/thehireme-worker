@@ -1,0 +1,98 @@
+export const verifyEmailScreenTranslations = {
+  "en": {
+    "verifyEmailTitle": "Verify Email",
+    "verifyEmailSubtitle": "We sent a 6-digit code to your email. Enter it below to confirm your account.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "of 6 digits",
+    "verifyButton": "Verify",
+    "didNotReceiveText": "Didn't receive code?",
+    "resendLink": "Resend",
+    "errorCodeRequired": "Code must be 6 digits",
+    "errorVerificationFailed": "Verification failed. Please try again.",
+    "errorInvalidCode": "Invalid code."
+  },
+  "bs": {
+    "verifyEmailTitle": "Provjeri Email",
+    "verifyEmailSubtitle": "Poslali smo kod od 6 cifara na tvoj email. Unesi ga ispod da potvrdiš svoj račun.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "od 6 cifara",
+    "verifyButton": "Provjeri",
+    "didNotReceiveText": "Nisi primio kod?",
+    "resendLink": "Pošalji Ponovno",
+    "errorCodeRequired": "Kod mora biti 6 cifara",
+    "errorVerificationFailed": "Provjera nije uspješna. Pokušaj ponovno.",
+    "errorInvalidCode": "Neispravan kod."
+  },
+  "hr": {
+    "verifyEmailTitle": "Provjeri Email",
+    "verifyEmailSubtitle": "Poslali smo kod od 6 znamenki na tvoj email. Unesi ga ispod da potvrdiš svoj račun.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "od 6 znamenki",
+    "verifyButton": "Provjeri",
+    "didNotReceiveText": "Nisi primio kod?",
+    "resendLink": "Pošalji Ponovno",
+    "errorCodeRequired": "Kod mora biti 6 znamenki",
+    "errorVerificationFailed": "Provjera nije uspješna. Pokušaj ponovno.",
+    "errorInvalidCode": "Neispravan kod."
+  },
+  "me": {
+    "verifyEmailTitle": "Provjeri Email",
+    "verifyEmailSubtitle": "Poslali smo kod od 6 cifara na tvoj email. Unesi ga ispod da potvrdiš svoj račun.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "od 6 cifara",
+    "verifyButton": "Provjeri",
+    "didNotReceiveText": "Nisi primio kod?",
+    "resendLink": "Pošalji Ponovno",
+    "errorCodeRequired": "Kod mora biti 6 cifara",
+    "errorVerificationFailed": "Provjera nije uspješna. Pokušaj ponovno.",
+    "errorInvalidCode": "Neispravan kod."
+  },
+  "de": {
+    "verifyEmailTitle": "E-Mail Verifizieren",
+    "verifyEmailSubtitle": "Wir haben einen 6-stelligen Code an deine E-Mail gesendet. Gib ihn unten ein, um dein Konto zu bestätigen.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "von 6 Ziffern",
+    "verifyButton": "Verifizieren",
+    "didNotReceiveText": "Code nicht erhalten?",
+    "resendLink": "Erneut Senden",
+    "errorCodeRequired": "Code muss 6 Ziffern sein",
+    "errorVerificationFailed": "Verifizierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "errorInvalidCode": "Ungültiger Code."
+  },
+  "fr": {
+    "verifyEmailTitle": "Vérifier l'E-mail",
+    "verifyEmailSubtitle": "Nous avons envoyé un code à 6 chiffres à votre e-mail. Entrez-le ci-dessous pour confirmer votre compte.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "sur 6 chiffres",
+    "verifyButton": "Vérifier",
+    "didNotReceiveText": "Vous n'avez pas reçu le code?",
+    "resendLink": "Renvoyer",
+    "errorCodeRequired": "Le code doit être 6 chiffres",
+    "errorVerificationFailed": "La vérification a échoué. Veuillez réessayer.",
+    "errorInvalidCode": "Code invalide."
+  },
+  "nl": {
+    "verifyEmailTitle": "E-mail Verifiëren",
+    "verifyEmailSubtitle": "We hebben een 6-cijferige code naar je e-mail gestuurd. Voer deze hieronder in om je account te bevestigen.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "van 6 cijfers",
+    "verifyButton": "Verifiëren",
+    "didNotReceiveText": "Code niet ontvangen?",
+    "resendLink": "Opnieuw Verzenden",
+    "errorCodeRequired": "Code moet 6 cijfers zijn",
+    "errorVerificationFailed": "Verificatie mislukt. Probeer het opnieuw.",
+    "errorInvalidCode": "Ongeldige code."
+  },
+  "pl": {
+    "verifyEmailTitle": "Weryfikuj E-mail",
+    "verifyEmailSubtitle": "Wysłaliśmy 6-cyfrowy kod na twój e-mail. Wpisz go poniżej, aby potwierdzić swoje konto.",
+    "codePlaceholder": "000000",
+    "codeProgressLabel": "z 6 cyfr",
+    "verifyButton": "Weryfikuj",
+    "didNotReceiveText": "Nie otrzymałeś kodu?",
+    "resendLink": "Wyślij Ponownie",
+    "errorCodeRequired": "Kod musi zawierać 6 cyfr",
+    "errorVerificationFailed": "Weryfikacja nie powiodła się. Spróbuj ponownie.",
+    "errorInvalidCode": "Nieprawidłowy kod."
+  }
+};

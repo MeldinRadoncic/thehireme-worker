@@ -1,7 +1,7 @@
 /**
  * useLanguageTranslations Hook
  *
- * Dynamically loads translations for a screen based on current language
+ * Loads translations for a screen based on current language
  *
  * Usage:
  * const t = useLanguageTranslations('welcome-screen');
@@ -11,49 +11,44 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useMemo } from 'react';
 
+import { welcomeScreenTranslations } from '@/languages/welcome-screen';
+import { loginScreenTranslations } from '@/languages/login-screen';
+import { signupScreenTranslations } from '@/languages/signup-screen';
+import { verifyEmailScreenTranslations } from '@/languages/verify-email-screen';
+
 type Language = 'en' | 'bs' | 'hr' | 'me' | 'de' | 'fr' | 'nl' | 'pl';
 
 interface TranslationFile {
-  [key: string]: {
-    [translationKey: string]: string;
-  };
+  [key: string]: Record<string, string>;
 }
 
-export const useLanguageTranslations = (screenName: string) => {
+const translationMap: Record<string, TranslationFile> = {
+  'welcome-screen': welcomeScreenTranslations,
+  'login-screen': loginScreenTranslations,
+  'signup-screen': signupScreenTranslations,
+  'verify-email-screen': verifyEmailScreenTranslations,
+};
+
+export const useLanguageTranslations = (screenName: string): Record<string, string> => {
   const { language } = useLanguage();
 
   return useMemo(() => {
-    try {
-      // Dynamically import the JSON file for this screen
-      const translationFile = require(`@/languages/${screenName}.json`) as TranslationFile;
+    const translationFile = translationMap[screenName];
 
-      // Get translations for current language, fallback to English
-      const translations = translationFile[language] || translationFile['en'] || {};
-
-      // Create a proxy to warn about missing translations
-      return new Proxy(translations, {
-        get: (target, prop: string) => {
-          const value = target[prop];
-
-          if (!value) {
-            console.warn(`Missing translation key: ${screenName}.${prop} for language: ${language}`);
-            // Return the key name as fallback
-            return prop;
-          }
-
-          return value;
-        }
-      }) as Record<string, string>;
-    } catch (error) {
-      console.warn(`Could not load translations for screen: ${screenName}`, error);
-      // Return empty object with proxy to avoid crashes
-      return new Proxy({}, {
-        get: (target, prop: string) => {
-          console.warn(`Missing translation file: ${screenName}.json`);
-          return prop;
-        }
-      }) as Record<string, string>;
+    if (!translationFile) {
+      console.warn(`Translation file not found for screen: ${screenName}`);
+      return {};
     }
+
+    // Get translations for current language, fallback to English
+    const translations = translationFile[language] || translationFile.en || {};
+
+    // Log if using fallback
+    if (!translationFile[language] && translationFile.en) {
+      console.warn(`No translations found for language: ${language}, using English fallback for ${screenName}`);
+    }
+
+    return translations;
   }, [language, screenName]);
 };
 

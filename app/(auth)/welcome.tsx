@@ -1,7 +1,7 @@
 import { View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Button, Text, Card, BackButton } from '@/components';
+import { Button, Text, Card, BackButton, LanguageSwitcher } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { useLanguageTranslations } from '@/hooks/useLanguageTranslations';
 import { useBackButton } from '@/hooks/useBackButton';
@@ -15,10 +15,22 @@ export default function WelcomeScreen() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
+      {/* Header with Language Switcher */}
+      <View style={{
+        paddingHorizontal: spacing.lg,
+        paddingTop: spacing['4xl'],
+        paddingBottom: spacing.lg,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+      }}>
+        <LanguageSwitcher size="small" showLabel={false} />
+      </View>
+
       {/* Content */}
       <View>
         {/* Hero Section */}
-        <View style={{ paddingTop: spacing['5xl'], paddingHorizontal: spacing.lg, paddingBottom: spacing.lg }}>
+        <View style={{ paddingTop: spacing.lg, paddingHorizontal: spacing.lg, paddingBottom: spacing.lg }}>
           {/* Logo/Branding */}
           <View style={{ marginBottom: spacing['4xl'] }}>
             <View style={{ marginBottom: spacing.xl, flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>

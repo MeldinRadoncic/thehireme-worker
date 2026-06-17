@@ -3,7 +3,7 @@ import { View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { useSignUp } from '@clerk/expo';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Button, Text, ErrorMessage, BackButton } from '@/components';
+import { Button, Text, ErrorMessage, BackButton, LanguageSwitcher } from '@/components';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { useLanguageTranslations } from '@/hooks/useLanguageTranslations';
 import { useBackButton } from '@/hooks/useBackButton';
@@ -56,15 +56,20 @@ export default function VerifyEmailScreen() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background.primary }} showsVerticalScrollIndicator={false}>
-      {/* Header with Back Button at Top Left - Safe Area */}
+      {/* Header with Back Button and Language Switcher */}
       <View style={{ paddingHorizontal: spacing.lg, paddingTop: spacing['4xl'] }}>
-        {/* Back Button - Top Left (Safe Area, below status bar) */}
-        <BackButton
-          onPress={handleBack}
-          showButton={shouldShowBack}
-          size="medium"
-          style={{ marginBottom: spacing.lg, alignSelf: 'flex-start' }}
-        />
+        {/* Header Row - Back Button on Left, Language Switcher on Right */}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing.lg }}>
+          {/* Back Button - Top Left (Safe Area, below status bar) */}
+          <BackButton
+            onPress={handleBack}
+            showButton={shouldShowBack}
+            size="medium"
+          />
+
+          {/* Language Switcher - Top Right */}
+          <LanguageSwitcher size="small" showLabel={false} />
+        </View>
 
         {/* Icon */}
         <View style={{
